@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+    <configuration>
+     <springProfile name="local">
+			<appender name="FILE-AUDIT"
+				class="ch.qos.logback.core.rolling.RollingFileAppender">
+				<!-- /usr/local/web/vemJavalog.log -->
+				<file>E:/local/web/vemJavalog.log</file>
+				<encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+					<Pattern>%d{dd-MM-yyyy HH:mm:ss.SSS} %-5level %logger{35}.%M - %msg%n
+					</Pattern>
+				</encoder>
+				
+					<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+						<!-- rollover daily -->
+						<fileNamePattern>E:/local/web/vemJavalog.%d{yyyy-MM-dd}.%i.log</fileNamePattern>
+						<timeBasedFileNamingAndTriggeringPolicy
+							class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+							<maxFileSize>10MB</maxFileSize>
+						</timeBasedFileNamingAndTriggeringPolicy>
+						<MaxHistory>10</MaxHistory>
+					</rollingPolicy>
+				</appender>
+				
+					<logger name="org.springframework.boot.SpringApplication" additivity="false" level="error">
+					   <appender-ref ref="FILE-AUDIT" /> 
+					</logger>
+					
+					<logger name="org.springframework.web" additivity="false" level="error">
+					    <appender-ref ref="FILE-AUDIT" />
+					</logger>
+					
+					<logger name="org.hibernate" additivity="false" level="error">
+					   <appender-ref ref="FILE-AUDIT" />
+					</logger>
+				   
+				    <logger name="com.accessor.demo.service.*" level="debug" additivity="false">
+						<appender-ref ref="FILE-AUDIT" />
+					</logger>
+					
+					<logger name="com.accessor.demo.controller.*" level="debug" additivity="false">
+						<appender-ref ref="FILE-AUDIT" />
+					</logger>
+					<logger name="com.accessor.demo" level="debug" additivity="false">
+						<appender-ref ref="FILE-AUDIT" />
+					</logger>
+					
+				<root level="ERROR">
+					<appender-ref ref="FILE-AUDIT" />
+				</root>
+	</springProfile>
+    
+	 <springProfile name="local">
+			<appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+				<encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+			             <!-- <pattern>%d{yy-MMMM-dd HH:mm:ss:SSS} %5p %t %c{2}:%L - %m%n</pattern> -->
+			             <pattern>%date %level [%thread] %logger{10} [%file : %line] %msg%n</pattern>
+		         </encoder>
+		    </appender>
+	    
+	              <logger name="org.springframework.boot.SpringApplication" additivity="false" level="error">
+					   <appender-ref ref="STDOUT" />
+					</logger>
+					
+					<logger name="org.springframework.web" additivity="false" level="error">
+					    <appender-ref ref="STDOUT" />
+					</logger>
+					
+					<logger name="org.hibernate" additivity="false" level="error">
+					   <appender-ref ref="STDOUT" />
+					</logger>
+					<logger name="com.accessor.demo.service.*" level="debug" additivity="false">
+						<appender-ref ref="STDOUT" />
+					</logger>
+					<logger name="com.accessor.demo.controller.*" level="debug" additivity="false">
+						<appender-ref ref="STDOUT" />
+					</logger>	
+					<logger name="com.accessor.demo" level="debug" additivity="false">
+						<appender-ref ref="STDOUT" />
+					</logger>
+	    
+	    <root level="ERROR">
+			<appender-ref ref="STDOUT" />
+		</root>
+      </springProfile>
+
+</configuration>
